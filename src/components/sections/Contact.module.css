@@ -1,0 +1,209 @@
+.contact {
+  position: relative;
+  z-index: 1;
+  height: 100svh;
+  min-height: 680px;
+  overflow: hidden;
+  container-type: size;
+}
+
+/* frase que aparece antes do portal abrir, centrada no ponto de luz */
+.teaser {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 0 var(--gutter-x) 34cqh;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(2.4rem, 5.4vw, 6rem);
+  font-weight: 900;
+  font-synthesis: none;
+  line-height: 0.95;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--word-ink);
+  /* sem JS o portal já está aberto e cobre a frase */
+  visibility: hidden;
+}
+
+.portal {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  clip-path: circle(78% at 50% 50%);
+  background: var(--bg);
+}
+
+.sky {
+  position: absolute;
+  inset: 0;
+}
+
+.sky img {
+  object-fit: cover;
+}
+
+.glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 50% at 50% 55%, rgba(150, 82, 255, 0.3), transparent 70%),
+    linear-gradient(to bottom, rgba(7, 5, 26, 0.2), transparent 30%, transparent 55%, rgba(7, 5, 26, 0.85) 100%);
+}
+
+/* nome gigante atrás do busto, como na hero */
+.word {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 30cqh;
+  translate: 0 -50%;
+  margin: 0;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: min(21vw, 36cqh);
+  font-weight: 900;
+  font-synthesis: none;
+  line-height: 0.86;
+  letter-spacing: -0.01em;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--word-ink);
+}
+
+.char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.robot {
+  position: absolute;
+  left: 50%;
+  bottom: -18cqh;
+  z-index: 1;
+  height: 96cqh;
+  aspect-ratio: 1122 / 1402;
+  translate: -50% 0;
+  pointer-events: none;
+}
+
+.robot img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* espelhado: o busto agora olha para o outro lado da página */
+  transform: scaleX(-1);
+}
+
+/* -------- placa de contato -------- */
+
+.panel {
+  position: absolute;
+  left: var(--gutter-x);
+  right: var(--gutter-x);
+  bottom: max(var(--gutter-x), env(safe-area-inset-bottom));
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1.1fr 1.2fr auto;
+  align-items: center;
+  gap: clamp(1.25rem, 3vw, 3rem);
+  padding: clamp(1.25rem, 2vw, 2rem) clamp(1.25rem, 2.6vw, 2.75rem);
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(145deg, rgba(20, 12, 50, 0.55), rgba(8, 5, 24, 0.7)),
+    var(--glass-fill);
+}
+
+.panelTitle {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(1.6rem, 2.3vw, 2.6rem);
+  font-weight: 900;
+  font-synthesis: none;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.panelCopy {
+  max-width: 26rem;
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+
+.channels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.channels a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-weight: 600;
+  color: var(--ink);
+  transition: color 0.5s var(--ease-out);
+}
+
+.channels a span {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.channels a:hover {
+  color: var(--violet-soft);
+}
+
+.channels a:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+@media (max-width: 1099px) {
+  .panel {
+    grid-template-columns: 1fr auto;
+  }
+
+  .channels {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+@media (max-width: 767px) {
+  .word {
+    top: 24cqh;
+    font-size: min(24vw, 30cqh);
+  }
+
+  .robot {
+    height: 74cqh;
+    bottom: 0;
+  }
+
+  .panel {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .panelCopy {
+    display: none;
+  }
+
+  .channels {
+    grid-row: auto;
+  }
+}

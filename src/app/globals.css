@@ -1,3 +1,44 @@
+/* ==========================================================================
+   TOKENS — os mesmos tons da hero (Hero.module.css), agora globais para que
+   todas as seções falem a mesma língua: fundo quase preto azulado, tinta
+   lilás, violeta elétrico das veias do robô.
+   ========================================================================== */
+
+:root {
+  --bg: #07051a;
+  --bg-deep: #040210;
+  --ink: #ece7f7;
+  --ink-soft: rgba(236, 231, 247, 0.72);
+  --ink-mute: rgba(236, 231, 247, 0.52);
+  --ink-faint: rgba(236, 231, 247, 0.16);
+  --word-ink: #d9d0ea;
+  --violet: #a46bff;
+  --violet-soft: #c7a8ff;
+  --violet-deep: #5a28c8;
+  --violet-glow: rgba(150, 82, 255, 0.45);
+
+  /* vidro "Apple": véu claro de 2 paradas, borda fina e reflexo no topo */
+  --glass-fill: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.075) 0%,
+    rgba(255, 255, 255, 0.02) 55%,
+    rgba(164, 107, 255, 0.05) 100%
+  );
+  --glass-border: rgba(214, 196, 255, 0.14);
+  --glass-blur: blur(26px) saturate(160%);
+  --glass-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.03),
+    0 30px 80px -20px rgba(2, 0, 12, 0.7);
+
+  --gutter-x: clamp(1.25rem, 5.4vw, 6rem);
+  --section-y: clamp(6rem, 14vw, 13rem);
+  --radius-xl: clamp(1.5rem, 2.4vw, 2.5rem);
+  --radius-lg: clamp(1.1rem, 1.6vw, 1.75rem);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 *,
 *::before,
 *::after {
@@ -14,8 +55,8 @@ body {
 }
 
 body {
-  background: #07051a;
-  color: #ece7f7;
+  background: var(--bg);
+  color: var(--ink);
   font-family: var(--font-archivo), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -25,4 +66,125 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: var(--violet);
+  color: var(--bg);
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   PRIMITIVOS COMPARTILHADOS
+   ========================================================================== */
+
+/* Vidro: aplicado como classe extra nos cards de todas as seções */
+.glass {
+  position: relative;
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+/* reflexo especular: uma faixa de luz diagonal na borda superior */
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(255, 255, 255, 0) 28%,
+    rgba(164, 107, 255, 0) 70%,
+    rgba(164, 107, 255, 0.4) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Eyebrow das seções — o mesmo ponto pulsante da hero */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0 0 1.75rem;
+  font-size: clamp(0.72rem, 0.78vw, 0.9rem);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--violet);
+  box-shadow: 0 0 12px var(--violet-glow);
+}
+
+/* Título display — a Anton da hero, sempre em caixa alta */
+.display {
+  margin: 0;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-weight: 900;
+  font-synthesis: none;
+  line-height: 0.9;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  color: var(--word-ink);
+}
+
+/* gradiente lilás → violeta para as palavras em destaque */
+.accent {
+  background: linear-gradient(100deg, #f1eaff 0%, var(--violet-soft) 40%, var(--violet) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* máscara de linha do SplitText: as linhas sobem de dentro de si mesmas.
+   A folga vertical devolve o espaço das acentuações (Ç, Ã) da Anton. */
+.split-mask {
+  padding-block: 0.08em;
+  margin-block: -0.08em;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }

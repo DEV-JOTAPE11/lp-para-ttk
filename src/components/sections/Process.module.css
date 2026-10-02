@@ -1,0 +1,195 @@
+.process {
+  --wire-x: 1.1rem;
+
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(2rem, 6vw, 7rem);
+  max-width: calc(88rem + var(--gutter-x) * 2);
+  margin: 0 auto;
+  padding: var(--section-y) var(--gutter-x);
+}
+
+.aside {
+  position: sticky;
+  top: 20svh;
+  align-self: start;
+}
+
+.title {
+  font-size: clamp(2.8rem, 5.6vw, 6.4rem);
+}
+
+.lede {
+  max-width: 26rem;
+  margin: 2rem 0 0;
+  font-size: clamp(0.95rem, 1.05vw, 1.15rem);
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.listWrap {
+  position: relative;
+}
+
+/* -------- o fio -------- */
+
+.wire {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--wire-x);
+  width: 2px;
+  margin-left: -1px;
+  background: rgba(214, 196, 255, 0.1);
+}
+
+.fill {
+  position: absolute;
+  inset: 0;
+  transform-origin: top;
+  background: linear-gradient(to bottom, var(--violet-deep), var(--violet) 70%, #f1eaff);
+  box-shadow:
+    0 0 10px rgba(164, 107, 255, 0.85),
+    0 0 34px rgba(164, 107, 255, 0.4);
+}
+
+.spark {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    0 0 8px 2px #fff,
+    0 0 24px 8px rgba(199, 168, 255, 0.9),
+    0 0 64px 18px rgba(164, 107, 255, 0.5);
+}
+
+/* -------- etapas -------- */
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  position: relative;
+  padding-left: calc(var(--wire-x) * 2 + 1.5rem);
+}
+
+.node {
+  position: absolute;
+  left: var(--wire-x);
+  top: 2.4rem;
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(214, 196, 255, 0.35);
+  background: var(--bg);
+  transition:
+    background-color 0.6s var(--ease-out),
+    border-color 0.6s var(--ease-out),
+    box-shadow 0.6s var(--ease-out);
+}
+
+.card {
+  padding: clamp(1.4rem, 2.4vw, 2.5rem);
+  border-radius: var(--radius-lg);
+  transition:
+    border-color 0.8s var(--ease-out),
+    box-shadow 0.8s var(--ease-out);
+}
+
+.cardHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.n {
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(2.6rem, 3.6vw, 3.8rem);
+  font-weight: 900;
+  font-synthesis: none;
+  line-height: 0.9;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(214, 196, 255, 0.45);
+  transition:
+    color 0.8s var(--ease-out),
+    text-shadow 0.8s var(--ease-out);
+}
+
+.time {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.stepTitle {
+  margin: 1rem 0 0.6rem;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(1.8rem, 2.4vw, 2.6rem);
+  font-weight: 900;
+  font-synthesis: none;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.copy {
+  max-width: 34rem;
+  margin: 0;
+  font-size: clamp(0.92rem, 1vw, 1.06rem);
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+/* -------- etapa ligada --------
+   Sem JS (ou com reduced-motion) nenhuma etapa recebe .on: ficam todas no
+   estado neutro, que já é legível. */
+.on .node {
+  border-color: #f1eaff;
+  background: var(--violet);
+  box-shadow:
+    0 0 0 6px rgba(164, 107, 255, 0.18),
+    0 0 24px rgba(164, 107, 255, 0.9);
+}
+
+.on .card {
+  border-color: rgba(164, 107, 255, 0.55);
+  box-shadow:
+    var(--glass-shadow),
+    0 0 60px -10px rgba(164, 107, 255, 0.45);
+}
+
+.on .n {
+  color: var(--ink);
+  text-shadow: 0 0 24px rgba(164, 107, 255, 0.8);
+}
+
+@media (max-width: 899px) {
+  .process {
+    grid-template-columns: 1fr;
+  }
+
+  .aside {
+    position: static;
+  }
+
+  .step {
+    padding-left: calc(var(--wire-x) * 2 + 0.75rem);
+  }
+}

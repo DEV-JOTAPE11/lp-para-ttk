@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
+import { useEffect, useRef } from "react";
 
 import styles from "./Header.module.css";
 
@@ -46,9 +47,34 @@ function SearchIcon() {
 
 export function Header() {
   const reduce = useReducedMotion();
+  const ref = useRef<HTMLElement>(null);
+
+  // Ao sair do topo o header vira uma pílula de vidro; rolando para baixo
+  // ele se recolhe, rolando para cima volta. Só atributos no nó — o CSS
+  // faz as transições, sem re-render a cada evento de scroll.
+  useEffect(() => {
+    const header = ref.current;
+    if (!header) return;
+    let last = window.scrollY;
+
+    const onScroll = () => {
+      const y = window.scrollY;
+      header.toggleAttribute("data-scrolled", y > 40);
+      const hide = y > window.innerHeight * 0.9 && y > last + 2;
+      const show = y < last - 2;
+      if (hide) header.setAttribute("data-hidden", "");
+      else if (show || y <= 40) header.removeAttribute("data-hidden");
+      last = y;
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <motion.header
+      ref={ref}
       className={styles.header}
       initial={reduce ? false : { opacity: 0, y: -52, filter: "blur(18px)" }}
       animate={{

@@ -94,7 +94,9 @@
   font-weight: 900;
   font-synthesis: none;
   line-height: 0.86;
-  letter-spacing: -0.012em;
+  /* --exit (0 → 1) vem do HeroStage: na saída as letras se afastam */
+  letter-spacing: calc(-0.012em + var(--exit, 0) * 0.3em);
+  opacity: calc(1 - var(--exit, 0) * 0.55);
   text-transform: uppercase;
   white-space: nowrap;
   color: var(--word-ink);
@@ -128,6 +130,9 @@
   left: 50%;
   bottom: calc(var(--robot-sink) * -1);
   transform: translateX(-50%);
+  /* na saída o busto sobe e cresce, como se avançasse para a câmera */
+  translate: 0 calc(var(--exit, 0) * -12%);
+  scale: calc(1 + var(--exit, 0) * 0.12);
   z-index: 2;
   height: var(--robot-h);
   aspect-ratio: 1122 / 1402;
@@ -175,6 +180,8 @@
   inset: 0;
   z-index: 3;
   pointer-events: none;
+  opacity: calc(1 - var(--exit, 0) * 2.5);
+  translate: 0 calc(var(--exit, 0) * -6cqh);
 }
 
 .content > * {
@@ -367,7 +374,7 @@
   }
 
   .word {
-    letter-spacing: -0.02em;
+    letter-spacing: calc(-0.02em + var(--exit, 0) * 0.2em);
   }
 
   /* empilhados à esquerda, logo abaixo do header */

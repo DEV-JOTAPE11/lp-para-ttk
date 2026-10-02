@@ -1,0 +1,61 @@
+.marquee {
+  position: relative;
+  z-index: 1;
+  padding: clamp(3rem, 6vw, 6rem) 0;
+  overflow: hidden;
+  /* as pontas somem no escuro, sem corte seco */
+  -webkit-mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.row {
+  display: flex;
+  overflow: hidden;
+}
+
+.row + .row {
+  margin-top: clamp(0.25rem, 0.8vw, 0.75rem);
+}
+
+.track {
+  display: flex;
+  flex-shrink: 0;
+  will-change: transform;
+}
+
+.group {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(1.25rem, 2.6vw, 2.75rem);
+  padding-right: clamp(1.25rem, 2.6vw, 2.75rem);
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(3.4rem, 9vw, 9.5rem);
+  font-weight: 900;
+  font-synthesis: none;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--word-ink);
+}
+
+/* segunda linha só em contorno: a mesma palavra, sem massa */
+.outline .item {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(199, 168, 255, 0.55);
+}
+
+.spark {
+  width: 0.42em;
+  height: 0.42em;
+  color: var(--violet);
+  filter: drop-shadow(0 0 0.18em rgba(164, 107, 255, 0.8));
+}
+
+.outline .spark {
+  color: var(--violet-soft);
+}

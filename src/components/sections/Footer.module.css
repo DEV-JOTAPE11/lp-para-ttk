@@ -1,0 +1,122 @@
+.footer {
+  position: relative;
+  z-index: 1;
+  padding: clamp(4rem, 8vw, 7rem) var(--gutter-x) max(1.5rem, env(safe-area-inset-bottom));
+  overflow: hidden;
+  border-top: 1px solid rgba(214, 196, 255, 0.1);
+  background: linear-gradient(to bottom, rgba(7, 5, 26, 0.6), var(--bg-deep));
+}
+
+.top {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr auto;
+  align-items: start;
+  gap: 2.5rem;
+}
+
+.tagline {
+  max-width: 24rem;
+  margin: 0;
+  font-size: clamp(1rem, 1.2vw, 1.25rem);
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+
+.cols {
+  display: flex;
+  gap: clamp(2rem, 5vw, 5rem);
+}
+
+.cols ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cols a {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+  transition: color 0.5s var(--ease-out);
+}
+
+.cols a:hover {
+  color: var(--violet-soft);
+}
+
+.toTop {
+  padding: 0.85rem 1.4rem;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 0.5s var(--ease-out);
+}
+
+.toTop:hover {
+  border-color: var(--violet);
+}
+
+.cols a:focus-visible,
+.toTop:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* o nome gigante: metade acesa (lilás) e metade apagada; o GSAP desliza o
+   gradiente para acender da esquerda para a direita */
+.brand {
+  margin: clamp(3rem, 7vw, 6rem) 0 0;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: 23.4vw;
+  font-weight: 900;
+  font-synthesis: none;
+  line-height: 0.8;
+  letter-spacing: -0.012em;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: linear-gradient(
+    90deg,
+    var(--word-ink) 0%,
+    var(--violet-soft) 40%,
+    var(--violet) 49%,
+    rgba(214, 196, 255, 0.08) 51%,
+    rgba(214, 196, 255, 0.08) 100%
+  );
+  background-size: 200% 100%;
+  background-position: 0% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  user-select: none;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  font-size: 0.8rem;
+  color: var(--ink-mute);
+}
+
+@media (max-width: 899px) {
+  .top {
+    grid-template-columns: 1fr;
+  }
+
+  .toTop {
+    justify-self: start;
+  }
+
+  .bottom {
+    flex-direction: column;
+  }
+}

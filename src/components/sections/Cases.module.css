@@ -1,0 +1,188 @@
+.cases {
+  position: relative;
+  z-index: 1;
+  padding: var(--section-y) var(--gutter-x) calc(var(--section-y) * 0.5);
+}
+
+.head {
+  max-width: 88rem;
+  margin: 0 auto clamp(3rem, 6vw, 6rem);
+}
+
+.title {
+  max-width: 14ch;
+  font-size: clamp(2.8rem, 6vw, 6.8rem);
+}
+
+.stack {
+  max-width: 88rem;
+  margin: 0 auto;
+}
+
+/* cada card para 1.1rem abaixo do anterior: as bordas de cima ficam à
+   mostra, como uma pilha */
+.case {
+  position: sticky;
+  top: calc(10svh + var(--i) * 1.1rem);
+  height: min(78svh, 46rem);
+  margin-bottom: 12svh;
+}
+
+.case:last-child {
+  margin-bottom: 0;
+}
+
+.panel {
+  --dim: 0;
+
+  display: grid;
+  grid-template-columns: 1.08fr 1fr;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(145deg, rgba(30, 18, 70, 0.75), rgba(10, 6, 30, 0.85)),
+    var(--glass-fill);
+  will-change: transform;
+}
+
+/* escurecimento do recuo, controlado por --dim no GSAP */
+.panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  background: #05030f;
+  opacity: var(--dim);
+  pointer-events: none;
+}
+
+.media {
+  position: relative;
+  margin: 0.6rem;
+  overflow: hidden;
+  border-radius: calc(var(--radius-xl) - 0.6rem);
+}
+
+.media img {
+  object-fit: cover;
+  will-change: transform;
+}
+
+.media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top right, rgba(7, 5, 26, 0.55), transparent 50%);
+}
+
+.index {
+  position: absolute;
+  left: clamp(1rem, 2vw, 2rem);
+  bottom: clamp(0.75rem, 1.6vw, 1.5rem);
+  z-index: 1;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(4rem, 8vw, 9rem);
+  font-weight: 900;
+  font-synthesis: none;
+  line-height: 0.8;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(241, 234, 255, 0.8);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(0.8rem, 1.2vw, 1.25rem);
+  padding: clamp(1.5rem, 3.6vw, 4rem);
+}
+
+.sector {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--violet-soft);
+}
+
+.client {
+  margin: 0;
+  font-size: clamp(1rem, 1.2vw, 1.25rem);
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.headline {
+  font-size: clamp(2.4rem, 4.2vw, 4.8rem);
+  color: var(--ink);
+}
+
+.copy {
+  max-width: 32rem;
+  margin: 0;
+  font-size: clamp(0.92rem, 1vw, 1.08rem);
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.metrics {
+  display: flex;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  margin: 0.75rem 0 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(214, 196, 255, 0.14);
+}
+
+.metrics dt {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.metrics dd {
+  margin: 0.35rem 0 0;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(1.8rem, 2.6vw, 2.9rem);
+  font-weight: 900;
+  font-synthesis: none;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.reveal {
+  will-change: transform, opacity;
+}
+
+/* Tablet retrato: imagem em cima, texto embaixo, ainda empilhando */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .panel {
+    grid-template-columns: 1fr;
+    grid-template-rows: 42% 1fr;
+  }
+
+  .info {
+    justify-content: flex-start;
+  }
+}
+
+/* Mobile: sem sticky — os cards fluem e entram um a um */
+@media (max-width: 767px) {
+  .case {
+    position: relative;
+    top: auto;
+    height: auto;
+    margin-bottom: 1.25rem;
+  }
+
+  .panel {
+    grid-template-columns: 1fr;
+  }
+
+  .media {
+    aspect-ratio: 4 / 3;
+  }
+}
