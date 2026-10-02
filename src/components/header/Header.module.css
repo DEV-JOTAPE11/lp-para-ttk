@@ -1,0 +1,144 @@
+/* Header sobreposto à hero, como na referência: marca + links à esquerda,
+   ícones e a chamada em destaque à direita. Mesmo gutter lateral da hero. */
+
+.header {
+  --gutter-x: clamp(1.25rem, 5.4vw, 6rem);
+  --ink: #ece7f7;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: max(clamp(1.25rem, 3.6vw, 3.25rem), env(safe-area-inset-top)) var(--gutter-x) 0;
+  color: var(--ink);
+}
+
+.left,
+.right {
+  display: flex;
+  align-items: center;
+}
+
+.left {
+  gap: clamp(1.5rem, 3.4vw, 3.25rem);
+}
+
+.logo {
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+  transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.logo:hover {
+  color: #c7a8ff;
+}
+
+.links {
+  display: flex;
+  gap: clamp(1.25rem, 2.1vw, 2.25rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  position: relative;
+  display: inline-block;
+  padding: 0.35rem 0;
+  font-size: clamp(0.72rem, 0.78vw, 0.92rem);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* sublinhado que corre da esquerda no hover */
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.link:hover::after,
+.link:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.right {
+  gap: clamp(1.5rem, 4.6vw, 5rem);
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 1.2vw, 1.25rem);
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.icon:hover {
+  color: #c7a8ff;
+  transform: translateY(-2px);
+}
+
+.action {
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(1.15rem, 1.55vw, 1.85rem);
+  font-weight: 900;
+  font-synthesis: none;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.action:hover {
+  color: #c7a8ff;
+}
+
+.logo:focus-visible,
+.link:focus-visible,
+.icon:focus-visible,
+.action:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* Mobile: só marca e a chamada — os links saem para não disputar com a cena */
+@media (max-width: 767px) {
+  .links,
+  .icons {
+    display: none;
+  }
+
+  .action {
+    font-size: 1.2rem;
+  }
+}
